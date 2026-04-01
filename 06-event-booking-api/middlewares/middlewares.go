@@ -15,11 +15,10 @@ func AuthMiddleware() gin.HandlerFunc {
 		authHeader := context.GetHeader("Authorization")
 
 		if authHeader == "" || !strings.HasPrefix(authHeader, bearerPrefix) {
-			context.JSON(http.StatusUnauthorized, gin.H{
+			context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error": "Access token not provided.",
 			})
 
-			context.Abort()
 			return
 		}
 
@@ -29,17 +28,31 @@ func AuthMiddleware() gin.HandlerFunc {
 		if err != nil {
 			log.Println("Error validating access token:", err)
 
-			context.JSON(http.StatusUnauthorized, gin.H{
+			context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error": "Access token invalid or expired.",
 			})
 
-			context.Abort()
 			return
 		}
 
-		context.Set("userID", claims.UserID)
-		context.Set("name", claims.Name)
-		context.Set("email", claims.Email)
+		auth.SetContext(context, claims)
+		context.Next()
+	}
+}
+
+func OptionalAuthMiddleware() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		const bearerPrefix = "Bearer "
+		authHeader := context.GetHeader("Authorization")
+
+		if authHeader != "" && strings.HasPrefix(authHeader, bearerPrefix) {
+			tokenString := strings.TrimPrefix(authHeader, bearerPrefix)
+			claims, err := auth.ValidateAccessToken(tokenString)
+
+			if err == nil {
+				auth.SetContext(context, claims)
+			}
+		}
 
 		context.Next()
 	}

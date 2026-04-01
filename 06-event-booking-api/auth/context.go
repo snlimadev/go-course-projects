@@ -2,6 +2,12 @@ package auth
 
 import "github.com/gin-gonic/gin"
 
+func SetContext(context *gin.Context, claims *AccessClaims) {
+	context.Set("userID", claims.UserID)
+	context.Set("name", claims.Name)
+	context.Set("email", claims.Email)
+}
+
 func GetUserID(context *gin.Context) int64 {
 	return getFromContext(context, "userID", int64(0))
 }

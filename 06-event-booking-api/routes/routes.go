@@ -28,7 +28,7 @@ func registerPublicRoutes(server *gin.Engine) {
 
 	// Events
 	server.GET("/events", getEvents)
-	server.GET("/events/:id", getEventDetails)
+	server.GET("/events/:id", middlewares.OptionalAuthMiddleware(), getEventDetails)
 
 	// Bookings
 	server.GET("/events/:id/bookings", getBookings)
