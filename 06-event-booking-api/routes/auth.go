@@ -87,7 +87,7 @@ func refresh(context *gin.Context) {
 		setRefreshTokenCookie(context, "", -1)
 
 		context.JSON(http.StatusUnauthorized, gin.H{
-			"error": "Refresh token invalid or expired.",
+			"error": "Refresh token invalid or expired. Please login again.",
 		})
 
 		return
@@ -111,7 +111,7 @@ func refresh(context *gin.Context) {
 		log.Println("Error refreshing access token:", err)
 
 		context.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Could not refresh access token. Please login again.",
+			"error": "Could not refresh access token. Please try again later.",
 		})
 
 		return
