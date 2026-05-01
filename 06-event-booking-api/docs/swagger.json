@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Event Booking API",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "API for user authentication, event management, and event bookings."
   },
   "servers": [
@@ -886,10 +886,12 @@
         "properties": {
           "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "description": "User email (max 255 characters)"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "User password (max 64 characters)"
           }
         },
         "required": [
@@ -901,14 +903,17 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "User name (max 100 characters)"
           },
           "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "description": "User email (max 255 characters)"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "User password (max 64 characters)"
           }
         },
         "required": [
@@ -925,11 +930,13 @@
             "format": "int64"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "User name (max 100 characters)"
           },
           "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "description": "User email (max 255 characters)"
           },
           "createdAt": {
             "type": "string",
@@ -947,13 +954,16 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Event name (max 100 characters)"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Event description (max 1000 characters)"
           },
           "location": {
-            "type": "string"
+            "type": "string",
+            "description": "Event location (max 250 characters)"
           },
           "dateTime": {
             "type": "string",
@@ -975,13 +985,16 @@
             "format": "int64"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Event name (max 100 characters)"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Event description (max 1000 characters)"
           },
           "location": {
-            "type": "string"
+            "type": "string",
+            "description": "Event location (max 250 characters)"
           },
           "dateTime": {
             "type": "string",
@@ -1019,13 +1032,16 @@
             "format": "int64"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Event name (max 100 characters)"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Event description (max 1000 characters)"
           },
           "location": {
-            "type": "string"
+            "type": "string",
+            "description": "Event location (max 250 characters)"
           },
           "dateTime": {
             "type": "string",
